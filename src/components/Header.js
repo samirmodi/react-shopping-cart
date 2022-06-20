@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Nav,
   Badge,
@@ -12,27 +12,39 @@ import {
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { CartState } from "../context/Context";
+import "./styles.css";
 
 const Header = () => {
   const {
     state: { cart },
     dispatch,
+    filterDispatcher,
   } = CartState();
+
   return (
     <Navbar bg='dark' variant='dark' style={{ height: 80 }}>
       <Container>
         <Navbar.Brand>
           <a href='/'>Shopping Cart</a>
         </Navbar.Brand>
-        <Navbar.Text>
-          <FormControl
-            style={{ width: 500 }}
-            placeholder='Search for a product'
-            className='m-auto'
-          />
-        </Navbar.Text>
+        {useLocation().pathname.split("/")[1] !== "cart" && (
+          <Navbar.Text className='search'>
+            <FormControl
+              style={{ width: 500 }}
+              placeholder='Search for a product'
+              className='m-auto'
+              aria-label='Search'
+              onChange={(e) => {
+                filterDispatcher({
+                  type: "FILTER_BY_SEARCH",
+                  payload: e.target.value,
+                });
+              }}
+            />
+          </Navbar.Text>
+        )}
         <Nav>
-          <Dropdown alignRight>
+          <Dropdown align={{ sm: "right" }}>
             <Dropdown.Toggle variant='success'>
               <FaShoppingCart color='white' fontSize='25px' />
 
@@ -44,36 +56,35 @@ const Header = () => {
               ) : (
                 cart.map((cartItem) => (
                   <div>
-                  <span className='cartitem' key={cartItem.id}>
-                    <img
-                      src={cartItem.image}
-                      className='cartImage'
-                      alt={cartItem.name}
-                    />
-                    <div className='cartItemDetail'>
-                      <span>{cartItem.name}</span>
-                      <span> $ {cartItem.price.split(".")[0]}</span>
-                    </div>
-                    <AiFillDelete
-                      fontSize='20px'
-                      style={{ cursor: "pointer" }}
-                      onClick={() =>
-                        dispatch({
-                          type: "REMOVE_FROM_CART",
-                          payload: cartItem,
-                        })
-                      }
-                    />
-                  </span>
-                      <Link to='/cart'>
-                        <Button style={{ width: "95%", margin: "0 10px" }}>
-                          Go To Cart
-                        </Button>
+                    <span className='cartitem' key={cartItem.id}>
+                      <img
+                        src={cartItem.image}
+                        className='cartImage'
+                        alt={cartItem.name}
+                      />
+                      <div className='cartItemDetail'>
+                        <span>{cartItem.name}</span>
+                        <span> $ {cartItem.price.split(".")[0]}</span>
+                      </div>
+                      <AiFillDelete
+                        fontSize='20px'
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: cartItem,
+                          })
+                        }
+                      />
+                    </span>
+                    <Link to='/cart'>
+                      <Button style={{ width: "95%", margin: "0 10px" }}>
+                        Go To Cart
+                      </Button>
                     </Link>
                   </div>
                 ))
               )}
-             
             </Dropdown.Menu>
           </Dropdown>
         </Nav>
