@@ -43,6 +43,7 @@ const Header = () => {
                 <span style={{ padding: 10 }}>Cart is empty</span>
               ) : (
                 cart.map((cartItem) => (
+                  <div>
                   <span className='cartitem' key={cartItem.id}>
                     <img
                       src={cartItem.image}
@@ -64,13 +65,15 @@ const Header = () => {
                       }
                     />
                   </span>
+                      <Link to='/cart'>
+                        <Button style={{ width: "95%", margin: "0 10px" }}>
+                          Go To Cart
+                        </Button>
+                    </Link>
+                  </div>
                 ))
               )}
-              <Link to='/cart'>
-                <Button style={{ width: "95%", margin: "0 10px" }}>
-                  Go To Cart
-                </Button>
-              </Link>
+             
             </Dropdown.Menu>
           </Dropdown>
         </Nav>
