@@ -35,7 +35,7 @@ const Home = () => {
 
     if (searchQuery) {
       sortedProducts = sortedProducts.filter((prod) =>
-        prod.name.toLowerCase().includes(searchQuery)
+        prod.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
