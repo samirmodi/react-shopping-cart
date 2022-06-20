@@ -85,3 +85,6 @@
     width: 100%;
   }
 }
+button.dropdown-toggle .bg-primary {
+  background-color: transparent !important;
+}
