@@ -51,39 +51,39 @@ const Header = () => {
               <Badge>{cart.length}</Badge>
             </Dropdown.Toggle>
             <Dropdown.Menu style={{ minWidth: 370 }}>
-              {cart.length === 0 ? (
-                <span style={{ padding: 10 }}>Cart is empty</span>
-              ) : (
-                cart.map((cartItem) => (
-                  <div>
-                    <span className='cartitem' key={cartItem.id}>
+              {cart.length > 0 ? (
+                <>
+                  {cart.map((prod) => (
+                    <span className="cartitem" key={prod.id}>
                       <img
-                        src={cartItem.image}
-                        className='cartImage'
-                        alt={cartItem.name}
+                        src={prod.image}
+                        className="cartItemImg"
+                        alt={prod.name}
                       />
-                      <div className='cartItemDetail'>
-                        <span>{cartItem.name}</span>
-                        <span> $ {cartItem.price.split(".")[0]}</span>
+                      <div className="cartItemDetail">
+                        <span>{prod.name}</span>
+                        <span>₹ {prod.price.split(".")[0]}</span>
                       </div>
                       <AiFillDelete
-                        fontSize='20px'
+                        fontSize="20px"
                         style={{ cursor: "pointer" }}
                         onClick={() =>
                           dispatch({
                             type: "REMOVE_FROM_CART",
-                            payload: cartItem,
+                            payload: prod,
                           })
                         }
                       />
                     </span>
-                    <Link to='/cart'>
-                      <Button style={{ width: "95%", margin: "0 10px" }}>
-                        Go To Cart
-                      </Button>
-                    </Link>
-                  </div>
-                ))
+                  ))}
+                  <Link to="/cart">
+                    <Button style={{ width: "95%", margin: "0 10px" }}>
+                      Go To Cart
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <span style={{ padding: 10 }}>Cart is Empty!</span>
               )}
             </Dropdown.Menu>
           </Dropdown>
