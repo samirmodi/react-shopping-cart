@@ -35,8 +35,7 @@
   margin: 0 20px;
   margin-bottom: 20px;
 }
-
-.cartitem .cartImage {
+.cartitem .cartItemImg {
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -84,7 +83,4 @@
   .products {
     width: 100%;
   }
-}
-button.dropdown-toggle .bg-primary {
-  background-color: transparent !important;
 }
