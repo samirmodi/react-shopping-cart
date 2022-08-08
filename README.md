@@ -1,5 +1,6 @@
-Live URL - https://shopping-cart-samir.netlify.app/
+![image](https://user-images.githubusercontent.com/5720208/183351763-fc1885eb-e6bb-4da4-99fa-60d7596244f6.png)
 
+Hosted URL - https://shopping-cart-samir.netlify.app/
 
 # Getting Started with Create React App
 
